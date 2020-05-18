@@ -1,0 +1,168 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} - Registrarme{% endblock %}
+
+{% block body %}
+
+
+            
+
+<div class="container mt-5 text-center">
+    <div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="login">Iniciar sesión</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="registro">Registrarme</a>
+        </li>
+        </ul>
+    </div>
+    <div class="card-body">
+           
+            {{ form_start(formulario) }}
+
+
+            {% for message in app.flashes('registrado') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.nombre) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.nombre, 'Nombre:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.nombre, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el nombre'}}) }}
+                    {{ form_help(formulario.nombre) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.apellidos) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.apellidos, 'Apellidos:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.apellidos, {'attr': {'class': 'form-control', 'placeholder': 'Introduce los apellidos'}}) }}
+                    {{ form_help(formulario.apellidos) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.dni) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.dni, 'Dni:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                     {{ form_widget(formulario.dni, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el dni'}}) }}
+                    {{ form_help(formulario.dni) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.email) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.email, 'Email:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                     {{ form_widget(formulario.email, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el email'}}) }}
+                    {{ form_help(formulario.email) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.password) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.password, 'Contraseña:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.password, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la contraseña'}}) }}
+                    {{ form_help(formulario.password) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.fechaNacimiento) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.fechaNacimiento, 'Fecha de nacimiento:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                     <input type="date" id="fechaNacimiento" class="form-control"></input>
+                    {{ form_help(formulario.fechaNacimiento) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.calle) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.calle, 'Calle:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.calle, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la calle'}}) }}
+                    {{ form_help(formulario.calle) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.localidad) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.localidad, 'Localidad:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.localidad, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la localidad'}}) }}
+                    {{ form_help(formulario.localidad) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.provincia) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.provincia, 'Provincia:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.provincia, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la provincia'}}) }}
+                    {{ form_help(formulario.provincia) }}
+                </div>
+            </div>
+
+            <div class="form-group row justify-content-center">
+                    {{ form_errors(formulario.cp) }}
+                    <i class="fas fa-user"></i> {{ form_label(formulario.cp, 'Codigo Postal:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
+                <div class="col-sm-3">
+                    {{ form_widget(formulario.cp, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el codigo postal'}}) }}
+                    {{ form_help(formulario.cp) }}
+                </div>
+            </div>
+            <br>
+            
+            <div class="form-group row">
+                
+                <div class="col-sm-2 mx-auto">
+                    
+                    {{ form_widget(formulario.Registrarme, {'attr': {'class': 'form-control btn btn-lg btn-success my-3'}}) }}
+                    
+                </div>
+            </div>
+                {{ form_widget(formulario.fechaNacimiento, {'attr': {'class': ' d-none form-control', 'placeholder': 'Introduce el codigo postal'}}) }}
+            {{ form_end(formulario) }}
+
+            
+         
+
+
+             
+                    
+            </div>  
+            
+    </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+               document.getElementById("fechaNacimiento").onkeyup = () => {
+               let date = new Date(document.getElementById("fechaNacimiento").value);
+               document.getElementById("usuarios_fechaNacimiento_day").value = date.getDate();
+               document.getElementById("usuarios_fechaNacimiento_month").value = date.getMonth()+1;
+               document.getElementById("usuarios_fechaNacimiento_year").value = date.getFullYear();
+
+        
+        }
+
+    </script>
+
+{% endblock %}
+    

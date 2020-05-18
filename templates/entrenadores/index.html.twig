@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiero ser entrenador =){% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div id="app">
+        <Entrenador />  
+    </div>  
+
+    {{ form(formularioEntrenadores)}}
+    
+{% endblock %}
