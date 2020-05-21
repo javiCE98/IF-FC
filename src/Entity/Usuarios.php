@@ -39,7 +39,10 @@ class Usuarios implements UserInterface
     /**
      * @ORM\Column(type="string")
      */
-    private $confirmPass;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $nombre;
 
     /**
@@ -143,17 +146,9 @@ class Usuarios implements UserInterface
         return $this;
     }
 
-    public function getConfirmPass(): string
-    {
-        return (string) $this->confirmPass;
-    }
-
-    public function setConfirmPass(string $confirmPass): self
-    {
-        $this->confirmPass = $confirmPass;
-
-        return $this;
-    }
+    /**
+     * Get the value of confirmPass
+     */ 
 
     /**
      * Get the value of nombre

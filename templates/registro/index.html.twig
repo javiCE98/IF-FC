@@ -1,383 +1,400 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent() }} - Registrarme{% endblock %}
+{% block title %}Registrarme{% endblock %}
 
 {% block body %}
-
-
-            
-
-<div class="container mt-5 text-center">
+  
+<div class="container mt-5 mb-5 text-center justify-content-center">
     <div class="card text-center">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-            <a class="nav-link" href="login">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" href="registro">Registrarme</a>
-        </li>
-        </ul>
-    </div>
-    <div class="card-body">
-           
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Iniciar sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active">Registrarme</a>
+                </li>
+            </ul>
+        </div> 
+        <div class="card-body">
+            <h1>¡Rellena este formulario!</h1>
+            <small class="text-success">No compartiremos ninguno de tus datos con nadie</small>                    
+
+            <!-- Inicio formulario -->
             {{ form_start(formulario) }}
 
+                <!-- Mensaje registro exitoso -->
+                {% for message in app.flashes('registrado') %}
+                    <div class="alert alert-success text-center">
+                        {{ message }}
+                    </div>
+                {% endfor %}
 
-            {% for message in app.flashes('registrado') %}
-                <div class="alert alert-success">
-                    {{ message }}
+                <!-- Nombre -->
+                <div class="row mt-4"> 
+                    <div class="col">Nombre:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.nombre, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el nombre'}}) }}
+                        <span id="nombreError" class="text-danger"></span>
+                    </div>                        
+                </div> 
+
+                <!-- Apellidos -->
+                <div class="row mt-4"> 
+                    <div class="col">Apellidos:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.apellidos, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce los apellidos'}}) }}
+                        <span id="apellidosError" class="text-danger"></span>
+                    </div>                        
+                </div> 
+
+                <!-- Dni -->
+                <div class="row mt-4"> 
+                    <div class="col">Dni:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.dni, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el dni'}}) }}
+                        <span id="dniError" class="text-danger"></span>
+                    </div>                        
+                </div> 
+
+                <!-- Email -->
+                <div class="row mt-4"> 
+                    <div class="col">Email:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.email, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el email'}}) }}
+                        <span id="emailError" class="text-danger"></span>
+                    </div>                        
+                </div> 
+
+                <!-- Contraseña -->
+                <div class="row mt-4"> 
+                    <div class="col">Contraseña:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.password, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la contraseña','id': 'password'}}) }}
+                    </div>                        
                 </div>
 
-            {% endfor %}
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.nombre) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.nombre, 'Nombre:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.nombre, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el nombre'}}) }}
-                    {{ form_help(formulario.nombre) }}
-                    <span id="nombreError" class="text-danger"></span>
-                </div>
-            </div>
+                <!-- Confirmar contraseña -->
+                <div class="row mt-4"> 
+                    <div class="col">Confirmar contraseña:</div>                        
+                    <div class="col">
+                        <input type="password" id="confirmPass" placeholder="Confirma la contraseña" class="form-control text-center"></input> 
+                        <span id="confirmPassError" class="text-danger"></span>
+                    </div>                        
+                </div> 
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.apellidos) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.apellidos, 'Apellidos:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.apellidos, {'attr': {'class': 'form-control', 'placeholder': 'Introduce los apellidos'}}) }}
-                    {{ form_help(formulario.apellidos)}}
-                    <span id="apellidosError" class="text-danger"></span>
-                </div>
-            </div>
+                <!-- Fecha nacimiento -->
+                <div class="row mt-4"> 
+                    <div class="col">Fecha de nacimiento:</div>                        
+                    <div class="col">
+                        <input type="date" id="fechaNacimiento" class="form-control text-center"></input>
+                        {{ form_widget(formulario.fechaNacimiento, {'attr': {'class': 'd-none form-control'}}) }}
+                    </div>                        
+                </div> 
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.dni) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.dni, 'Dni:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                     {{ form_widget(formulario.dni, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el dni'}}) }}
-                    {{ form_help(formulario.dni) }}
-                    <span id="dniError" class="text-danger"></span>
-                </div>
-            </div>
+                <hr><span class="text-success">Dirección</span>
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.email) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.email, 'Email:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                     {{ form_widget(formulario.email, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el email'}}) }}
-                    {{ form_help(formulario.email) }}
-                    <span id="emailError" class="text-danger"></span>
-                </div>
-            </div>
+                <!-- Calle -->
+                <div class="row mt-4"> 
+                    <div class="col">Calle:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.calle, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la calle'}}) }}
+                        <span id="calleError" class="text-danger"></span>
+                    </div>                        
+                </div> 
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.password) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.password, 'Contraseña:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.password, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la contraseña', 'id': 'password'}}) }}
-                    {{ form_help(formulario.password) }}
-                </div>
-            </div>
+                <!-- Localidad -->
+                <div class="row mt-4"> 
+                    <div class="col">Localidad:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.localidad, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la localidad'}}) }}
+                        <span id="localidadError" class="text-danger"></span>
+                    </div>                        
+                </div> 
 
-            <div class="form-group row justify-content-center">
-                    <label class="col-sm-2 col-form-label">Confirmar contraseña:</label>
-                <div class="col-sm-3">
-                    <input type="text" id="confirmPass" placeholder="Confirma la contraseña" class="form-control mt-2"></input> <span id="confirmPassError" class="text-danger">La contraseña no coincide</span>
-                    <span id="confirmPassError" class="text-danger"></span>
-                </div>
-            </div>
+                <!-- Provincia -->
+                <div class="row mt-4"> 
+                    <div class="col">Provincia:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.provincia, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce la provincia'}}) }}
+                        <span id="provinciaError" class="text-danger"></span>
+                    </div>                        
+                </div> 
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.fechaNacimiento) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.fechaNacimiento, 'Fecha de nacimiento:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                     <input type="date" id="fechaNacimiento" class="form-control"></input>
-                    {{ form_help(formulario.fechaNacimiento) }}
+                <!-- Código postal -->
+                <div class="row mt-4"> 
+                    <div class="col">Código postal:</div>                        
+                    <div class="col">
+                        {{ form_widget(formulario.cp, {'attr': {'class': 'form-control text-center', 'placeholder': 'Introduce el codigo postal'}}) }}
+                        <span id="cpError" class="text-danger"></span>
+                    </div>                        
                 </div>
-            </div>
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.calle) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.calle, 'Calle:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.calle, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la calle'}}) }}
-                    {{ form_help(formulario.calle) }}
-                    <span id="calleError" class="text-danger"></span>
-                </div>
-            </div>
+                <!-- Botón de registrar --> 
+                <div class="row mt-4"> 
+                    <div class="col">
+                        {{ form_widget(formulario.Registrarme, {'attr': {'class': 'form-control, btn btn-outline-success'}}) }}
+                    </div>                       
+                </div>                 
 
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.localidad) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.localidad, 'Localidad:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.localidad, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la localidad'}}) }}
-                    {{ form_help(formulario.localidad) }}
-                    <span id="localidadError" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.provincia) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.provincia, 'Provincia:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.provincia, {'attr': {'class': 'form-control', 'placeholder': 'Introduce la provincia'}}) }}
-                    {{ form_help(formulario.provincia) }}
-                    <span id="provinciaError" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="form-group row justify-content-center">
-                    {{ form_errors(formulario.cp) }}
-                    <i class="fas fa-user"></i> {{ form_label(formulario.cp, 'Codigo Postal:',{'label_attr': {'class': 'col-sm-2 col-form-label'}}) }}
-                <div class="col-sm-3">
-                    {{ form_widget(formulario.cp, {'attr': {'class': 'form-control', 'placeholder': 'Introduce el codigo postal'}}) }}
-                    {{ form_help(formulario.cp) }}
-                    <span id="cpError" class="text-danger"></span>
-                </div>
-            </div>
-            <br>
-            
-            <div class="form-group row">
-                
-                <div class="col-sm-2 mx-auto">
-                    
-                    {{ form_widget(formulario.Registrarme, {'attr': {'class': 'form-control btn btn-lg btn-success my-3'}}) }}
-                    
-                </div>
-            </div>
-                {{ form_widget(formulario.fechaNacimiento, {'attr': {'class': ' d-none form-control', 'placeholder': 'Introduce el codigo postal'}}) }}
+            <!-- Fin formulario -->
             {{ form_end(formulario) }}
-
-            
-         
-
-
-             
-                    
-            </div>  
-            
-    </div>
-    </div>
-</div>
-
-
-
-
+        </div>   
+    </div>   
+</div> 
 {% endblock %}
 
 {% block javascripts %}
-
     <script>
+        document.querySelector('body').style.cursor = "pointer";
+        {# Variables formulario symfony #}
+        var fecha_nacimiento = document.getElementById("fechaNacimiento");
+        var fecha_dia = document.getElementById("usuarios_fechaNacimiento_day");
+        var fecha_mes = document.getElementById("usuarios_fechaNacimiento_month");
+        var fecha_year = document.getElementById("usuarios_fechaNacimiento_year");
+        var nombre = document.getElementById("usuarios_nombre");
+        var apellidos = document.getElementById("usuarios_apellidos");
+        var dni = document.getElementById("usuarios_dni");
+        var email = document.getElementById("usuarios_email");
+        var password = document.getElementById("usuarios_password");
+        var confirmPass = document.getElementById("confirmPass");
+        var calle = document.getElementById("usuarios_calle");
+        var localidad = document.getElementById("usuarios_localidad");
+        var provincia = document.getElementById("usuarios_provincia");
+        var cp = document.getElementById("usuarios_cp");
+        var boton_registrar = document.getElementById("usuarios_Registrarme");
 
+        {# Variables errores #}
+        var nombre_error = document.getElementById("nombreError");
+        var apellidos_error = document.getElementById("apellidosError");
+        var dni_error = document.getElementById("dniError");
+        var email_error = document.getElementById("emailError");
+        var confirmPass_error = document.getElementById("confirmPassError");
+        var calle_error = document.getElementById("calleError");
+        var localidad_error = document.getElementById("localidadError");
+        var provincia_error = document.getElementById("provinciaError");
+        var cp_error = document.getElementById("cpError");
+
+
+        fecha_nacimiento.onkeyup = () => {
+            let date = new Date(fecha_nacimiento.value);
+            fecha_dia.value = date.getDate();
+            fecha_mes.value = date.getMonth()+1;
+            fecha_year.value = date.getFullYear();
+        }
+        
+
+        nombre_error.innerHTML = "";
+        nombre.onkeyup = () => {
+            const regExpNombre =/[A-Za-z]/;
+
+            if(regExpNombre.test(nombre.value)){
+                nombre_error.innerHTML = "";
+                nombre.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+
+            if(!regExpNombre.test(nombre.value)){
+                nombre_error.innerHTML = "El campo debe tener una cadena de caracteres";
+                nombre.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+                
+            }
+
+            if(nombre.value == ""){
+                nombre_error.innerHTML = "El campo no puede estar vacío";
+                nombre.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
+        
+        apellidos_error.innerHTML = "";
+        apellidos.onkeyup = () => {
+            const regExpApellidos =/[A-Za-z]/;
             
-               document.getElementById("fechaNacimiento").onkeyup = () => {
-               let date = new Date(document.getElementById("fechaNacimiento").value);
-               document.getElementById("usuarios_fechaNacimiento_day").value = date.getDate();
-               document.getElementById("usuarios_fechaNacimiento_month").value = date.getMonth()+1;
-               document.getElementById("usuarios_fechaNacimiento_year").value = date.getFullYear();
-                }
-
-
-
-                document.getElementById("nombreError").innerHTML = "";
-                document.getElementById("usuarios_nombre").onkeyup = () => {
-                    const regExpNombre =/[A-Za-z]/;
-                    console.log(document.getElementById("usuarios_nombre").value);
-
-                    if(regExpNombre.test(document.getElementById("usuarios_nombre").value)){
-                        document.getElementById("nombreError").innerHTML = "";
-                         document.getElementById("usuarios_nombre").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpNombre.test(document.getElementById("usuarios_nombre").value)){
-                        document.getElementById("nombreError").innerHTML = "El campo debe tener una cadena de caracteres";
-                         document.getElementById("usuarios_nombre").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_nombre").value == ""){
-                        document.getElementById("nombreError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_nombre").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
-
-                document.getElementById("apellidosError").innerHTML = "";
-                document.getElementById("usuarios_apellidos").onkeyup = () => {
-                    const regExpApellidos =/[A-Za-z]/;
-                    console.log(document.getElementById("usuarios_apellidos").value);
-                    
-
-                    if(regExpApellidos.test(document.getElementById("usuarios_apellidos").value)){
-                        document.getElementById("apellidosError").innerHTML = "";
-                         document.getElementById("usuarios_apellidos").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpApellidos.test(document.getElementById("usuarios_apellidos").value)){
-                        document.getElementById("apellidosError").innerHTML = "El campo debe tener una cadena de caracteres";
-                         document.getElementById("usuarios_apellidos").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_apellidos").value == ""){
-                        document.getElementById("apellidosError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_apellidos").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
+            if(regExpApellidos.test(apellidos.value)){
+                apellidos_error.innerHTML = "";
+                apellidos.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpApellidos.test(apellidos.value)){
+                apellidos_error.innerHTML = "El campo debe tener una cadena de caracteres";
+                apellidos.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(apellidos.value == ""){
+                apellidos_error.innerHTML = "El campo no puede estar vacío";
+                apellidos.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
                 
-                document.getElementById("dniError").innerHTML = "";
-                document.getElementById("usuarios_dni").onkeyup = () => {
-                    const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
-                    console.log(document.getElementById("usuarios_dni").value);
+        dni_error.innerHTML = "";
+        dni.onkeyup = () => {
+            const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
 
-                    if(regExpDni.test(document.getElementById("usuarios_dni").value)){
-                        document.getElementById("dniError").innerHTML = "";
-                         document.getElementById("usuarios_dni").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpDni.test(document.getElementById("usuarios_dni").value)){
-                        document.getElementById("dniError").innerHTML = "El campo debe contener 8 números y 1 letra";
-                         document.getElementById("usuarios_dni").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_dni").value == ""){
-                        document.getElementById("dniError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_dni").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
+            if(regExpDni.test(dni.value)){
+                dni_error.innerHTML = "";
+                dni.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpDni.test(dni.value)){
+                dni_error.innerHTML = "El campo debe contener 8 números y 1 letra";
+                dni.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(dni.value == ""){
+                dni_error.innerHTML = "El campo no puede estar vacío";
+                dni.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
                 
-                document.getElementById("emailError").innerHTML = "";
-                document.getElementById("usuarios_email").onkeyup = () => {
-                    const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
-                    console.log(document.getElementById("usuarios_email").value);
+        email_error.innerHTML = "";
+        email.onkeyup = () => {
+            const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
 
-                    if(regExpEmail.test(document.getElementById("usuarios_email").value)){
-                        document.getElementById("emailError").innerHTML = "";
-                         document.getElementById("usuarios_email").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpEmail.test(document.getElementById("usuarios_email").value)){
-                        document.getElementById("emailError").innerHTML = "El campo debe tener formato email";
-                         document.getElementById("usuarios_email").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_email").value == ""){
-                        document.getElementById("emailError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_email").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
-                
-                
-
-                
-                document.getElementById("confirmPassError").innerHTML = "";
-                document.getElementById("confirmPass").onkeyup = () => {
-                    if(document.getElementById("confirmPass").value!=document.getElementById("usuarios_password").value){
-                        document.getElementById("confirmPassError").innerHTML = "Las contraseñas no coinciden";
-                        document.getElementById("usuarios_Registrarme").disabled = true;
-                        document.getElementById("confirmPass").style.borderColor = "red";
-                    }
-                    else{
-                        document.getElementById("confirmPassError").innerHTML = "";
-                        document.getElementById("usuarios_Registrarme").disabled = false;
-                        document.getElementById("confirmPass").style.borderColor = "";
-                    }
-                }
-
-                document.getElementById("calleError").innerHTML = "";
-                document.getElementById("usuarios_calle").onkeyup = () => {
-                    const regExpCalle =/[A-Za-z]/;
-                    console.log(document.getElementById("usuarios_calle").value);
-
-                    if(regExpCalle.test(document.getElementById("usuarios_calle").value)){
-                        document.getElementById("calleError").innerHTML = "";
-                         document.getElementById("usuarios_calle").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpCalle.test(document.getElementById("usuarios_calle").value)){
-                        document.getElementById("calleError").innerHTML = "El campo debe tener una cadena de caracteres";
-                         document.getElementById("usuarios_calle").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_calle").value == ""){
-                        document.getElementById("calleError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_calle").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
-
-                document.getElementById("localidadError").innerHTML = "";
-                document.getElementById("usuarios_localidad").onkeyup = () => {
-                    const regExpLocalidad =/[A-Za-z]/;
-                    console.log(document.getElementById("usuarios_localidad").value);
-
-                    if(regExpLocalidad.test(document.getElementById("usuarios_localidad").value)){
-                        document.getElementById("localidadError").innerHTML = "";
-                         document.getElementById("usuarios_localidad").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpLocalidad.test(document.getElementById("usuarios_localidad").value)){
-                        document.getElementById("localidadError").innerHTML = "El campo debe tener una cadena de caracteres";
-                         document.getElementById("usuarios_localidad").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_localidad").value == ""){
-                        document.getElementById("localidadError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_localidad").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
-
-                document.getElementById("provinciaError").innerHTML = "";
-                document.getElementById("usuarios_provincia").onkeyup = () => {
-                    const regExpLocalidad =/[A-Za-z]/;
-                    console.log(document.getElementById("usuarios_provincia").value);
-
-                    if(regExpLocalidad.test(document.getElementById("usuarios_provincia").value)){
-                        document.getElementById("provinciaError").innerHTML = "";
-                         document.getElementById("usuarios_provincia").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpLocalidad.test(document.getElementById("usuarios_provincia").value)){
-                        document.getElementById("provinciaError").innerHTML = "El campo debe tener una cadena de caracteres";
-                         document.getElementById("usuarios_provincia").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_provincia").value == ""){
-                        document.getElementById("provinciaError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_provincia").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
-
-                document.getElementById("cpError").innerHTML = "";
-                document.getElementById("usuarios_cp").onkeyup = () => {
-                    console.log("Dentro de cp");
-                    const regExpCp =/^[0-5][1-9]{3}[0-9]$/;
-                    console.log(document.getElementById("usuarios_cp").value);
-
-                    if(regExpCp.test(document.getElementById("usuarios_cp").value)){
-                        document.getElementById("cpError").innerHTML = "";
-                         document.getElementById("usuarios_cp").style.borderColor = "";
-                         document.getElementById("usuarios_Registrarme").disabled = false;
-                    }
-                    if(!regExpCp.test(document.getElementById("usuarios_cp").value)){
-                        document.getElementById("cpError").innerHTML = "El campo debe tener 5 numeros";
-                         document.getElementById("usuarios_cp").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                    if(document.getElementById("usuarios_cp").value == ""){
-                        document.getElementById("cpError").innerHTML = "El campo no puede estar vacío";
-                         document.getElementById("usuarios_cp").style.borderColor = "red";
-                         document.getElementById("usuarios_Registrarme").disabled = true;
-                    }
-                }
+            if(regExpEmail.test(email.value)){
+                email_error.innerHTML = "";
+                email.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpEmail.test(email.value)){
+                email_error.innerHTML = "El campo debe tener formato email";
+                email.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(email.value == ""){
+                email_error.innerHTML = "El campo no puede estar vacío";
+                email.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
+                      
+        confirmPass_error.innerHTML = "";
+        confirmPass.onkeyup = () => {
+            if(confirmPass.value != password.value){
+                confirmPass_error.innerHTML = "Las contraseñas no coinciden";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+                confirmPass.style.borderColor = "red";
+            }
+            else{
+                confirmPass_error.innerHTML = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+                confirmPass.style.borderColor = "";
+            }
+        }
 
 
+        calle_error.innerHTML = "";
+        calle.onkeyup = () => {
+            const regExpCalle =/[A-Za-z]/;
 
+            if(regExpCalle.test(calle.value)){
+                calle_error.innerHTML = "";
+                calle.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpCalle.test(calle.value)){
+                calle_error.innerHTML = "El campo debe tener una cadena de caracteres";
+                calle.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(calle.value == ""){
+                calle_error.innerHTML = "El campo no puede estar vacío";
+                calle.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
 
+        localidad_error.innerHTML = "";
+        localidad.onkeyup = () => {
+            const regExpLocalidad =/[A-Za-z]/;
+
+            if(regExpLocalidad.test(localidad.value)){
+                localidad_error.innerHTML = "";
+                localidad.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpLocalidad.test(localidad.value)){
+                localidad_error.innerHTML = "El campo debe tener una cadena de caracteres";
+                localidad.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(localidad.value == ""){
+                localidad_error.innerHTML = "El campo no puede estar vacío";
+                localidad.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
+
+        provincia_error.innerHTML = "";
+        provincia.onkeyup = () => {
+            const regExpLocalidad =/[A-Za-z]/;
+
+            if(regExpLocalidad.test(provincia.value)){
+                provincia_error.innerHTML = "";
+                provincia.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpLocalidad.test(provincia.value)){
+                provincia_error.innerHTML = "El campo debe tener una cadena de caracteres";
+                provincia.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(provincia.value == ""){
+                provincia_error.innerHTML = "El campo no puede estar vacío";
+                provincia.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
+
+        cp_error.innerHTML = "";
+        cp.onkeyup = () => {
+            const regExpCp =/^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$/;
+
+            if(regExpCp.test(cp.value)){
+                cp_error.innerHTML = "";
+                cp.style.borderColor = "";
+                boton_registrar.style.cursor = "pointer";
+                boton_registrar.disabled = false;
+            }
+            if(!regExpCp.test(cp.value)){
+                cp_error.innerHTML = "El campo debe tener 5 numeros comprendidos entre 01000 y 52999";
+                cp.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+            if(cp.value == ""){
+                cp_error.innerHTML = "El campo no puede estar vacío";
+                cp.style.borderColor = "red";
+                boton_registrar.style.cursor = "not-allowed";
+                boton_registrar.disabled = true;
+            }
+        }
     </script>
-
 {% endblock %}
-    
+
