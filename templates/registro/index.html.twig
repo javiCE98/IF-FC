@@ -1,6 +1,12 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Registrarme{% endblock %}
+<title>{% block title %}Registrarme{% endblock %}</title>
+
+{{ encore_entry_link_tags('css/app') }}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+{% endblock %}
 
 {% block body %}
   
@@ -25,7 +31,7 @@
 
                 <!-- Mensaje registro exitoso -->
                 {% for message in app.flashes('registrado') %}
-                    <div class="alert alert-success text-center">
+                    <div class="alert alert-success text-center mt-3">
                         {{ message }}
                     </div>
                 {% endfor %}
@@ -79,9 +85,21 @@
                     <div class="col">Confirmar contraseña:</div>                        
                     <div class="col">
                         <input type="password" id="confirmPass" placeholder="Confirma la contraseña" class="form-control text-center"></input> 
+                        
                         <span id="confirmPassError" class="text-danger"></span>
                     </div>                        
                 </div> 
+
+
+            <!-- Ver contraseñas -->
+                <div class="row mt-4"> 
+                    <div class="col"></div>                        
+                    <div class="col">
+                        Ver contraseñas
+                        <input type="checkbox" id="showPass"></input> 
+                    </div>                        
+                </div> 
+                
 
                 <!-- Fecha nacimiento -->
                 <div class="row mt-4"> 
@@ -141,12 +159,12 @@
             {{ form_end(formulario) }}
         </div>   
     </div>   
-</div> 
+</div>
 {% endblock %}
+
 
 {% block javascripts %}
     <script>
-        document.querySelector('body').style.cursor = "pointer";
         {# Variables formulario symfony #}
         var fecha_nacimiento = document.getElementById("fechaNacimiento");
         var fecha_dia = document.getElementById("usuarios_fechaNacimiento_day");
@@ -157,6 +175,7 @@
         var dni = document.getElementById("usuarios_dni");
         var email = document.getElementById("usuarios_email");
         var password = document.getElementById("usuarios_password");
+        var confirmPass2 = document.getElementById("usuarios_confirmPass");
         var confirmPass = document.getElementById("confirmPass");
         var calle = document.getElementById("usuarios_calle");
         var localidad = document.getElementById("usuarios_localidad");
@@ -174,7 +193,10 @@
         var localidad_error = document.getElementById("localidadError");
         var provincia_error = document.getElementById("provinciaError");
         var cp_error = document.getElementById("cpError");
+        var showPass = document.getElementById("showPass");
 
+        {# Puntero body #}
+        document.querySelector('body').style.cursor = "pointer";
 
         fecha_nacimiento.onkeyup = () => {
             let date = new Date(fecha_nacimiento.value);
@@ -182,19 +204,28 @@
             fecha_mes.value = date.getMonth()+1;
             fecha_year.value = date.getFullYear();
         }
-        
 
+        showPass.onclick = () => {
+            if(showPass.checked) {
+                password.type = "text";
+                confirmPass.type = "text";
+            }
+
+            else{
+                password.type = "password";
+                confirmPass.type = "password";
+            }
+        }
+        
         nombre_error.innerHTML = "";
         nombre.onkeyup = () => {
             const regExpNombre =/[A-Za-z]/;
-
             if(regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "";
                 nombre.style.borderColor = "";
                 boton_registrar.style.cursor = "pointer";
                 boton_registrar.disabled = false;
             }
-
             if(!regExpNombre.test(nombre.value)){
                 nombre_error.innerHTML = "El campo debe tener una cadena de caracteres";
                 nombre.style.borderColor = "red";
@@ -202,7 +233,6 @@
                 boton_registrar.disabled = true;
                 
             }
-
             if(nombre.value == ""){
                 nombre_error.innerHTML = "El campo no puede estar vacío";
                 nombre.style.borderColor = "red";
@@ -238,7 +268,6 @@
         dni_error.innerHTML = "";
         dni.onkeyup = () => {
             const regExpDni =/^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]$/i;
-
             if(regExpDni.test(dni.value)){
                 dni_error.innerHTML = "";
                 dni.style.borderColor = "";
@@ -262,7 +291,6 @@
         email_error.innerHTML = "";
         email.onkeyup = () => {
             const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
-
             if(regExpEmail.test(email.value)){
                 email_error.innerHTML = "";
                 email.style.borderColor = "";
@@ -298,12 +326,9 @@
                 confirmPass.style.borderColor = "";
             }
         }
-
-
         calle_error.innerHTML = "";
         calle.onkeyup = () => {
             const regExpCalle =/[A-Za-z]/;
-
             if(regExpCalle.test(calle.value)){
                 calle_error.innerHTML = "";
                 calle.style.borderColor = "";
@@ -323,11 +348,9 @@
                 boton_registrar.disabled = true;
             }
         }
-
         localidad_error.innerHTML = "";
         localidad.onkeyup = () => {
             const regExpLocalidad =/[A-Za-z]/;
-
             if(regExpLocalidad.test(localidad.value)){
                 localidad_error.innerHTML = "";
                 localidad.style.borderColor = "";
@@ -347,11 +370,9 @@
                 boton_registrar.disabled = true;
             }
         }
-
         provincia_error.innerHTML = "";
         provincia.onkeyup = () => {
             const regExpLocalidad =/[A-Za-z]/;
-
             if(regExpLocalidad.test(provincia.value)){
                 provincia_error.innerHTML = "";
                 provincia.style.borderColor = "";
@@ -371,11 +392,9 @@
                 boton_registrar.disabled = true;
             }
         }
-
         cp_error.innerHTML = "";
         cp.onkeyup = () => {
             const regExpCp =/^(?:0[1-9]\d{3}|[1-4]\d{4}|5[0-2]\d{3})$/;
-
             if(regExpCp.test(cp.value)){
                 cp_error.innerHTML = "";
                 cp.style.borderColor = "";
@@ -397,4 +416,3 @@
         }
     </script>
 {% endblock %}
-
