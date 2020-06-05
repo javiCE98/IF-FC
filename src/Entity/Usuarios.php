@@ -36,10 +36,6 @@ class Usuarios implements UserInterface
      */
     private $password;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-
 
     /**
      * @ORM\Column(type="string")
@@ -324,5 +320,5 @@ class Usuarios implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }    
+    }  
 }

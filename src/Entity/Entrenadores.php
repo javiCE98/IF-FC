@@ -18,8 +18,8 @@ class Entrenadores
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Usuarios::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=Usuarios::class, cascade={"persist"})
+     * @ORM\JoinColumn(name="usuarios_id", nullable=false, onDelete="CASCADE")
      */
     private $usuarios;
 

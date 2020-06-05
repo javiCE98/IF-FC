@@ -85,21 +85,9 @@
                     <div class="col">Confirmar contraseña:</div>                        
                     <div class="col">
                         <input type="password" id="confirmPass" placeholder="Confirma la contraseña" class="form-control text-center"></input> 
-                        
                         <span id="confirmPassError" class="text-danger"></span>
                     </div>                        
                 </div> 
-
-
-            <!-- Ver contraseñas -->
-                <div class="row mt-4"> 
-                    <div class="col"></div>                        
-                    <div class="col">
-                        Ver contraseñas
-                        <input type="checkbox" id="showPass"></input> 
-                    </div>                        
-                </div> 
-                
 
                 <!-- Fecha nacimiento -->
                 <div class="row mt-4"> 
@@ -193,7 +181,6 @@
         var localidad_error = document.getElementById("localidadError");
         var provincia_error = document.getElementById("provinciaError");
         var cp_error = document.getElementById("cpError");
-        var showPass = document.getElementById("showPass");
 
         {# Puntero body #}
         document.querySelector('body').style.cursor = "pointer";
@@ -203,18 +190,6 @@
             fecha_dia.value = date.getDate();
             fecha_mes.value = date.getMonth()+1;
             fecha_year.value = date.getFullYear();
-        }
-
-        showPass.onclick = () => {
-            if(showPass.checked) {
-                password.type = "text";
-                confirmPass.type = "text";
-            }
-
-            else{
-                password.type = "password";
-                confirmPass.type = "password";
-            }
         }
         
         nombre_error.innerHTML = "";
@@ -289,7 +264,7 @@
         }
                 
         email_error.innerHTML = "";
-        email.onkeyup = () => {
+        if(false){
             const regExpEmail =/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/;
             if(regExpEmail.test(email.value)){
                 email_error.innerHTML = "";
@@ -310,7 +285,32 @@
                 boton_registrar.disabled = true;
             }
         }
-                      
+
+        email.onkeyup = () => {
+            var ruta = '/comprobar-email'
+            console.log(email.value)
+            $.ajax({
+                type: 'POST',
+                url: ruta,
+                data: ({email: email.value.toString()}),
+                async: true,
+                dataType: 'json',
+                success: function (data) {
+                    comprobarEmail(data)
+                }
+            })
+        }
+
+        function comprobarEmail(valor) {
+            // email
+            if (valor) {
+                console.log('email repetido')
+
+            } else {
+                console.log('email correcto')
+            }
+        }
+
         confirmPass_error.innerHTML = "";
         confirmPass.onkeyup = () => {
             if(confirmPass.value != password.value){
